@@ -1,2 +1,2 @@
 # CSharp-Advanced-Tasks
-softuni course advanced
+CSharp-Advanced-Tasks from SoftwareUniversity.
