@@ -36,7 +36,8 @@ namespace JaggedArrayModification
                 int col = int.Parse(splittedInput[2]);
                 int value = int.Parse(splittedInput[3]);
 
-                if (matrix[0].Length - 1 < row || row < 0 || matrix[1].Length - 1 < col || col < 0)
+                if (matrix[0].Length - 1 < row || row < 0 || 
+                    matrix[1].Length - 1 < col || col < 0)
                 {
                     Console.WriteLine("Invalid coordinates");
                     continue;
