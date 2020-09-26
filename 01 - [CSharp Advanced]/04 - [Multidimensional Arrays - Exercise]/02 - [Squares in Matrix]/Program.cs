@@ -15,7 +15,7 @@ namespace SquaresInMatrix
 
             var matrix = new char[rows, cols];
 
-            FillingUpIntMatrix(matrix);
+            FillingUpMatrix(matrix);
 
             Console.WriteLine(CheckingTheNumberOfEqualSquares(matrix));
         }
@@ -47,7 +47,7 @@ namespace SquaresInMatrix
                .Select(int.Parse)
                .ToList();
 
-        static void FillingUpIntMatrix(char[,] matrix)
+        static void FillingUpMatrix(char[,] matrix)
         {
             for (int row = 0; row < matrix.GetLength(0); row++)
             {
