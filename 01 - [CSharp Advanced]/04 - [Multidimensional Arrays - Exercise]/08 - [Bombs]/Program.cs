@@ -4,7 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Linq;
 
-namespace KnightGame
+namespace Bombs
 {
     class Program
     {
