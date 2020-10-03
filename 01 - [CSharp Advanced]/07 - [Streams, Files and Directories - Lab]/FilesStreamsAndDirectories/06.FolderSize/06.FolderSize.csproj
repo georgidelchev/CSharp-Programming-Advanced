@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>_06.FolderSize</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="TestFolder\1. Java-Advanced-Stacks-and-Queues-Exercises.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\1. Java-Advanced-Stacks-and-Queues-Lab.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\1. Java-Advanced-Stacks-and-Queues.pptx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\2. Simple-Calculations-Exercises.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\TestFolder2\1. Java-Advanced-Stacks-and-Queues-Exercises.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\TestFolder2\1. Java-Advanced-Stacks-and-Queues-Lab.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\TestFolder2\1. Java-Advanced-Stacks-and-Queues.pptx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFolder\TestFolder2\2. Simple-Calculations-Exercises.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
