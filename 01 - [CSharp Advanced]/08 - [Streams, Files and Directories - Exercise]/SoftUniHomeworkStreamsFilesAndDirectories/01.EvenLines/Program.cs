@@ -23,15 +23,15 @@ namespace _01.EvenLines
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    var replacedString = charsToReplace
+                    if (counter++ % 2 == 0)
+                    {
+                        var replacedString = charsToReplace
                         .Aggregate(line, (x1, x2) => x1.Replace(x2, charForReplacing))
                         .Split()
                         .ToList();
 
-                    replacedString.Reverse();
+                        replacedString.Reverse();
 
-                    if (counter % 2 == 0)
-                    {
                         using (var writer = new StreamWriter(dir, true))
                         {
                             Console.Write(string.Join(" ", replacedString));
@@ -41,8 +41,6 @@ namespace _01.EvenLines
                             writer.WriteLine();
                         }
                     }
-
-                    counter++;
                 }
             }
         }
