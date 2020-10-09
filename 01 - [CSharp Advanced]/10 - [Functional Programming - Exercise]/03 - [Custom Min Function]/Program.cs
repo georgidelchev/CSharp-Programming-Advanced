@@ -29,7 +29,7 @@ namespace CustomMinFunction
                  return minValue;
              };
 
-            Console.WriteLine(minFunc(names));
+            Console.WriteLine(minFunc(numbers));
         }
     }
 }
