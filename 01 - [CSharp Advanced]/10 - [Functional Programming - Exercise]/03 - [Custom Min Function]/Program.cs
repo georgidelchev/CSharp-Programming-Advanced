@@ -8,7 +8,7 @@ namespace CustomMinFunction
     {
         static void Main(string[] args)
         {
-            var names = Console
+            var numbers = Console
                 .ReadLine()
                 .Split()
                 .Select(int.Parse)
