@@ -27,7 +27,7 @@ namespace SoftUniParking
             return $"Make: {this.Make}{Environment.NewLine}" +
                    $"Model: {this.Model}{Environment.NewLine}" +
                    $"HorsePower: {this.HorsePower}{Environment.NewLine}" +
-                   $"RegistrationNumber: {this.RegistrationNumber}{Environment.NewLine}";
+                   $"RegistrationNumber: {this.RegistrationNumber}";
 ;
         }
     }
