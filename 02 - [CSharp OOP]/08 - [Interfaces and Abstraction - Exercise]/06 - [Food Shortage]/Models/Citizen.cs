@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FoodShortage
+{
+    public class Citizen : ICheckable
+    {
+        public Citizen(string name, string id)
+        {
+            this.Name = name;
+            this.Id = id;
+        }
+
+        public string Name { get; private set; }
+
+        public string Id { get; }
+    }
+}
