@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WildFarm.Interfaces.Animals
 {
-    public interface IAnimal
+    public interface IAnimal : IProduceSound, IEatable
     {
         string Name { get; }
 
@@ -13,9 +13,5 @@ namespace WildFarm.Interfaces.Animals
         int FoodEaten { get; }
 
         IReadOnlyCollection<string> FavouriteFood { get; }
-
-        string ProduceSound();
-
-        void Eat(IFood food);
     }
 }

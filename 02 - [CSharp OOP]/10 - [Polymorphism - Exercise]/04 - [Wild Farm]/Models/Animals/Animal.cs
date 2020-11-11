@@ -7,7 +7,7 @@ using WildFarm.Interfaces.Animals;
 
 namespace WildFarm.Models
 {
-    public abstract class Animal : IAnimal, IProduceSound, IEatable
+    public abstract class Animal : IAnimal, IEatable
     {
         public Animal(string name, double weight)
         {
