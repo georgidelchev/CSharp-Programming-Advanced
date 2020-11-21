@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "Singleton\Singleton.csproj", "{8F269163-0135-4F4A-BDAB-9658ED5E94A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade", "Facade\Facade.csproj", "{37F3547B-270D-47DF-AADB-94FC9A89DA3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandPattern", "CommandPattern\CommandPattern.csproj", "{B3A76236-4DC8-40FC-9DFB-30608EA0A74C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F269163-0135-4F4A-BDAB-9658ED5E94A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F269163-0135-4F4A-BDAB-9658ED5E94A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F269163-0135-4F4A-BDAB-9658ED5E94A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F269163-0135-4F4A-BDAB-9658ED5E94A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37F3547B-270D-47DF-AADB-94FC9A89DA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F3547B-270D-47DF-AADB-94FC9A89DA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F3547B-270D-47DF-AADB-94FC9A89DA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F3547B-270D-47DF-AADB-94FC9A89DA3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A76236-4DC8-40FC-9DFB-30608EA0A74C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A76236-4DC8-40FC-9DFB-30608EA0A74C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A76236-4DC8-40FC-9DFB-30608EA0A74C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A76236-4DC8-40FC-9DFB-30608EA0A74C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07960407-0C73-4AEC-9760-B90AFDAA1EA1}
+	EndGlobalSection
+EndGlobal
