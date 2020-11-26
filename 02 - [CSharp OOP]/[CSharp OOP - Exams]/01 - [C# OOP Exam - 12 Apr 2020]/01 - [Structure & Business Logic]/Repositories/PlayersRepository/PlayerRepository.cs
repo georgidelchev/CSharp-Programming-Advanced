@@ -9,7 +9,7 @@ namespace CounterStrike.Repositories.PlayersRepository
 {
     public class PlayerRepository : IRepository<IPlayer>
     {
-        private readonly List<IPlayer> players;
+        private readonly ICollection<IPlayer> players;
 
         public PlayerRepository()
         {

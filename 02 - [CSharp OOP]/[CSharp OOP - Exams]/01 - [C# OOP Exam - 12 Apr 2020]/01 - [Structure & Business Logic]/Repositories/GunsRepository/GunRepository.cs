@@ -9,7 +9,7 @@ namespace CounterStrike.Repositories
 {
     public class GunRepository : IRepository<IGun>
     {
-        private readonly List<IGun> guns;
+        private readonly ICollection<IGun> guns;
 
         public GunRepository()
         {
