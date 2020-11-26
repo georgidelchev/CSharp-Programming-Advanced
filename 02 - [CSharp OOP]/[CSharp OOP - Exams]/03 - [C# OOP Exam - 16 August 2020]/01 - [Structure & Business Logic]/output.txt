@@ -1,0 +1,28 @@
+Computer with id 4 added successfully.
+Component CentralProcessingUnit with id 3 added successfully in computer with id 4.
+Component Motherboard with id 6 added successfully in computer with id 4.
+Component PowerSupply with id 7 added successfully in computer with id 4.
+Component RandomAccessMemory with id 10 added successfully in computer with id 4.
+Component SolidStateDrive with id 13 added successfully in computer with id 4.
+Component VideoCard with id 17 added successfully in computer with id 4.
+Peripheral Headset with id 3 added successfully in computer with id 4.
+Overall Performance: 105.51. Price: 8250.00 - Laptop: Asus ROG (Id: 4)
+ Components (6):
+  Overall Performance: 102.50. Price: 1600.00 - CentralProcessingUnit: Intel Xeon (Id: 3) Generation: 9
+  Overall Performance: 87.50. Price: 1250.00 - Motherboard: Asus ROG (Id: 6) Generation: 8
+  Overall Performance: 73.50. Price: 700.00 - PowerSupply: Fortron FSP (Id: 7) Generation: 2
+  Overall Performance: 96.00. Price: 900.00 - RandomAccessMemory: Kingston HyperX (Id: 10) Generation: 4
+  Overall Performance: 102.00. Price: 800.00 - SolidStateDrive: Samsung Evo (Id: 13) Generation: 7
+  Overall Performance: 111.55. Price: 2000.00 - VideoCard: Nvidia GeForce (Id: 17) Generation: 9
+ Peripherals (1); Average Overall Performance (70.00):
+  Overall Performance: 70.00. Price: 300.00 - Headset: Razer Thresher (Id: 3) Connection Type: AUX
+Successfully removed Headset with id 3.
+Overall Performance: 105.51. Price: 7950.00 - Laptop: Asus ROG (Id: 4)
+ Components (6):
+  Overall Performance: 102.50. Price: 1600.00 - CentralProcessingUnit: Intel Xeon (Id: 3) Generation: 9
+  Overall Performance: 87.50. Price: 1250.00 - Motherboard: Asus ROG (Id: 6) Generation: 8
+  Overall Performance: 73.50. Price: 700.00 - PowerSupply: Fortron FSP (Id: 7) Generation: 2
+  Overall Performance: 96.00. Price: 900.00 - RandomAccessMemory: Kingston HyperX (Id: 10) Generation: 4
+  Overall Performance: 102.00. Price: 800.00 - SolidStateDrive: Samsung Evo (Id: 13) Generation: 7
+  Overall Performance: 111.55. Price: 2000.00 - VideoCard: Nvidia GeForce (Id: 17) Generation: 9
+ Peripherals (0); Average Overall Performance (0.00):
