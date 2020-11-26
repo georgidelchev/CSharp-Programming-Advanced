@@ -16,7 +16,7 @@ namespace CounterStrike.Repositories.PlayersRepository
             this.players = new List<IPlayer>();
         }
 
-        public IReadOnlyCollection<IPlayer> Models => this.players;
+        public IReadOnlyCollection<IPlayer> Models => this.players.ToList().AsReadOnly();
 
         public void Add(IPlayer player)
         {

@@ -16,7 +16,7 @@ namespace CounterStrike.Repositories
             this.guns = new List<IGun>();
         }
 
-        public IReadOnlyCollection<IGun> Models => this.guns;
+        public IReadOnlyCollection<IGun> Models => this.guns.ToList().AsReadOnly();
         public void Add(IGun gun)
         {
             if (gun == null)
