@@ -11,15 +11,22 @@ namespace CounterStrike.Models.Maps.MapModels
     {
         public string Start(ICollection<IPlayer> players)
         {
-            var terrorists = players.Where(p => p.GetType().Name == nameof(Terrorist));
-            var counterTerrorists = players.Where(p => p.GetType().Name == nameof(CounterTerrorist));
+            var terrorists = players
+                .Where(p => p.GetType().Name == nameof(Terrorist))
+                .ToList();
+
+            var counterTerrorists = players
+                .Where(p => p.GetType().Name == nameof(CounterTerrorist))
+                .ToList();
 
             while (terrorists.Any(t => t.IsAlive) &&
                    counterTerrorists.Any(t => t.IsAlive))
             {
-                foreach (var t in terrorists)
+                foreach (var t in terrorists
+                    .Where(p => p.IsAlive))
                 {
-                    foreach (var ct in counterTerrorists)
+                    foreach (var ct in counterTerrorists
+                        .Where(p => p.IsAlive))
                     {
                         var bulletsFired = t.Gun.Fire();
 
@@ -27,9 +34,11 @@ namespace CounterStrike.Models.Maps.MapModels
                     }
                 }
 
-                foreach (var ct in counterTerrorists)
+                foreach (var ct in counterTerrorists
+                    .Where(p => p.IsAlive))
                 {
-                    foreach (var t in terrorists)
+                    foreach (var t in terrorists
+                        .Where(p => p.IsAlive))
                     {
                         var bulletsFired = ct.Gun.Fire();
 
@@ -40,8 +49,8 @@ namespace CounterStrike.Models.Maps.MapModels
 
             var result = "";
 
-            result = !counterTerrorists.Any(p => p.IsAlive) ? 
-                     $"Terrorist wins!" : 
+            result = !counterTerrorists.Any(p => p.IsAlive) ?
+                     $"Terrorist wins!" :
                      $"Counter Terrorist wins!";
 
             return result;
