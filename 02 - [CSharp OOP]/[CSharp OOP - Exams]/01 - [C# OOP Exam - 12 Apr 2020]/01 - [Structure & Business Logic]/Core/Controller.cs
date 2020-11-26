@@ -42,12 +42,17 @@ namespace CounterStrike.Core
 
         public string AddPlayer(string type, string username, int health, int armor, string gunName)
         {
+            var gun = this.guns.FindByName(gunName);
+
+            if (gun == null)
+            {
+                throw new ArgumentNullException(ExceptionMessages.GunCannotBeFound);
+            }
+
             if (!Enum.TryParse(type, out Players player))
             {
                 throw new ArgumentException(ExceptionMessages.InvalidPlayerType);
             }
-
-            var gun = this.guns.FindByName(gunName) ?? throw new ArgumentNullException(ExceptionMessages.GunCannotBeFound);
 
             players.Add(CreatePlayer(username, health, armor, gun, player));
 
