@@ -18,8 +18,6 @@ namespace CounterStrike.Models.Players
             this.Health = health;
             this.Armor = armor;
             this.Gun = gun;
-
-            this.IsAlive = true;
         }
 
         public string Username
@@ -90,28 +88,27 @@ namespace CounterStrike.Models.Players
             }
         }
 
-        public bool IsAlive { get; private set; }
+        public bool IsAlive => this.Health > 0;
 
         public void TakeDamage(int points)
         {
-            if (this.armor >= points)
+            if (points > this.Armor)
             {
-                this.armor -= points;
+                points -= this.Armor;
+                this.Armor = 0;
+
+                if (this.Health >= points)
+                {
+                    this.Health -= points;
+                }
+                else
+                {
+                    this.Health = 0;
+                }
             }
             else
             {
-                points -= this.Armor;
-
-                this.Armor = 0;
-
-                this.health -= points;
-
-                if (this.health <= 0)
-                {
-                    this.health = 0;
-
-                    this.IsAlive = false;
-                }
+                this.Armor -= points;
             }
         }
     }
