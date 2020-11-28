@@ -1,4 +1,6 @@
-﻿namespace PlayersAndMonsters.Models.Cards
+﻿using PlayersAndMonsters.Models.Cards.Contracts;
+
+namespace PlayersAndMonsters.Models.Cards.CardModels
 {
     public class MagicCard : Card
     {

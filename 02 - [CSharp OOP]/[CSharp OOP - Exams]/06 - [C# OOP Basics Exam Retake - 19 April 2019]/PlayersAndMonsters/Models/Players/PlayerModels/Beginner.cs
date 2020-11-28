@@ -1,6 +1,6 @@
 ﻿using PlayersAndMonsters.Repositories.Contracts;
 
-namespace PlayersAndMonsters.Models.Players
+namespace PlayersAndMonsters.Models.Players.PlayerModels
 {
     public class Beginner : Player
     {

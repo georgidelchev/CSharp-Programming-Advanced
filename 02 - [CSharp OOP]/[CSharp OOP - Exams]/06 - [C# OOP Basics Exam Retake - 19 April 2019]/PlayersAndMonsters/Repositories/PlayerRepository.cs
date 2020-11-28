@@ -19,7 +19,7 @@ namespace PlayersAndMonsters.Repositories
             => this.Players.Count;
 
         public IReadOnlyCollection<IPlayer> Players
-                => this._players.AsReadOnly();
+                => this._players.ToList().AsReadOnly();
 
         public void Add(IPlayer player)
         {

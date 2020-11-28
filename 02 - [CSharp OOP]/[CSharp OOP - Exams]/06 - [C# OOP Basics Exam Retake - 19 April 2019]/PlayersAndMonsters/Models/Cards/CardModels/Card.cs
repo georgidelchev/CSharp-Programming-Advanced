@@ -1,13 +1,13 @@
 ﻿using System;
 using PlayersAndMonsters.Models.Cards.Contracts;
 
-namespace PlayersAndMonsters.Models.Cards
+namespace PlayersAndMonsters.Models.Cards.CardModels
 {
     public abstract class Card : ICard
     {
-        private string _name;
-        private int _damagePoints;
-        private int _healthPoints;
+        private string name;
+        private int damagePoints;
+        private int healthPoints;
 
         protected Card(string name, int damagePoints, int healthPoints)
         {
@@ -18,7 +18,7 @@ namespace PlayersAndMonsters.Models.Cards
 
         public string Name
         {
-            get => this._name;
+            get => this.name;
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -26,13 +26,13 @@ namespace PlayersAndMonsters.Models.Cards
                     throw new ArgumentException("Card's name cannot be null or an empty string.");
                 }
 
-                this._name = value;
+                this.name = value;
             }
         }
 
         public int DamagePoints
         {
-            get => this._damagePoints; 
+            get => this.damagePoints;
             set
             {
                 if (value < 0)
@@ -40,13 +40,13 @@ namespace PlayersAndMonsters.Models.Cards
                     throw new ArgumentException("Card's damage points cannot be less than zero.");
                 }
 
-                this._damagePoints = value;
+                this.damagePoints = value;
             }
         }
 
         public int HealthPoints
         {
-            get => this._healthPoints;
+            get => this.healthPoints;
             private set
             {
                 if (value < 0)
@@ -54,7 +54,7 @@ namespace PlayersAndMonsters.Models.Cards
                     throw new ArgumentException("Card's HP cannot be less than zero.");
                 }
 
-                this._healthPoints = value;
+                this.healthPoints = value;
             }
         }
     }

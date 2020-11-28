@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Reflection.Metadata;
-using PlayersAndMonsters.Common;
+using System.Text;
 using PlayersAndMonsters.Models.Players.Contracts;
 using PlayersAndMonsters.Repositories.Contracts;
 
-namespace PlayersAndMonsters.Models.Players
+namespace PlayersAndMonsters.Models.Players.PlayerModels
 {
     public abstract class Player : IPlayer
     {
-        private string _username;
-        private int _health;
+        private string username;
+        private int health;
 
         protected Player(ICardRepository cardRepository, string username, int health)
         {
@@ -22,29 +21,29 @@ namespace PlayersAndMonsters.Models.Players
 
         public string Username
         {
-            get => this._username;
+            get => this.username;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("Player's username cannot be null or an empty string. ");
+                    throw new ArgumentException("Player's username cannot be null or an empty string.");
                 }
 
-                this._username = value;
+                this.username = value;
             }
         }
 
         public int Health
         {
-            get => this._health;
+            get => this.health;
             set
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Player's health bonus cannot be less than zero. ");
+                    throw new ArgumentException("Player's health bonus cannot be less than zero.");
                 }
 
-                this._health = value;
+                this.health = value;
             }
         }
 
@@ -57,7 +56,7 @@ namespace PlayersAndMonsters.Models.Players
                 throw new ArgumentException("Damage points cannot be less than zero.");
             }
 
-            if (this.Health - damagePoints < 0)
+            if (this.Health - damagePoints <= 0)
             {
                 this.Health = 0;
             }
@@ -65,6 +64,21 @@ namespace PlayersAndMonsters.Models.Players
             {
                 this.Health -= damagePoints;
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"Username: {this.Username} - Health: {this.Health} - Cards {this.CardRepository.Count}");
+            foreach (var card in this.CardRepository.Cards)
+            {
+                sb.AppendLine($"Card: {card.Name} - Damage: {card.DamagePoints}");
+            }
+
+            sb.AppendLine("###");
+
+            return sb.ToString().Trim();
         }
     }
 }

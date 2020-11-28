@@ -1,4 +1,5 @@
-﻿using PlayersAndMonsters.Repositories.Contracts;
+﻿using PlayersAndMonsters.Models.Players.PlayerModels;
+using PlayersAndMonsters.Repositories.Contracts;
 
 namespace PlayersAndMonsters.Models.Players
 {

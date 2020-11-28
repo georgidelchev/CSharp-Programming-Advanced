@@ -3,6 +3,7 @@ using System.Linq;
 using PlayersAndMonsters.Models.BattleFields.Contracts;
 using PlayersAndMonsters.Models.Players;
 using PlayersAndMonsters.Models.Players.Contracts;
+using PlayersAndMonsters.Models.Players.PlayerModels;
 
 namespace PlayersAndMonsters.Models.BattleFields.BattleFieldModels
 {
@@ -19,11 +20,10 @@ namespace PlayersAndMonsters.Models.BattleFields.BattleFieldModels
             IncreasePlayerStats(attackPlayer);
             IncreasePlayerStats(enemyPlayer);
 
-            BonusIncreasePlayerDamage(attackPlayer);
-            BonusIncreasePlayerDamage(enemyPlayer);
+            attackPlayer.Health += CalculatePlayerHealth(attackPlayer);
+            enemyPlayer.Health += CalculatePlayerHealth(enemyPlayer);
 
-            PlayersFight(attackPlayer);
-            PlayersFight(enemyPlayer);
+            Fighting(attackPlayer, enemyPlayer);
         }
 
         private static void IncreasePlayerStats(IPlayer player)
@@ -39,27 +39,41 @@ namespace PlayersAndMonsters.Models.BattleFields.BattleFieldModels
             }
         }
 
-        private static void BonusIncreasePlayerDamage(IPlayer player)
-        {
-            player.Health += player
+        private static int CalculatePlayerHealth(IPlayer player)
+            => player
+                .CardRepository
+                .Cards
+                .Select(c => c.HealthPoints)
+                .Sum();
+
+        private static int CalculatePlayerDamage(IPlayer player)
+            => player
                 .CardRepository
                 .Cards
                 .Select(c => c.DamagePoints)
                 .Sum();
-        }
 
-        private static void PlayersFight(IPlayer player)
+        private static void Fighting(IPlayer attackPlayer, IPlayer enemyPlayer)
         {
-            foreach (var currPlayer in player.CardRepository.Cards)
+            while (true)
             {
-                if (player.Health <= 0)
-                {
-                    player.Health = 0;
+                var attackerAttackPoints = CalculatePlayerDamage(attackPlayer);
 
+                enemyPlayer.TakeDamage(attackerAttackPoints);
+
+                if (enemyPlayer.IsDead)
+                {
                     break;
                 }
 
-                player.TakeDamage(currPlayer.DamagePoints);
+                var enemyAttackPoints = CalculatePlayerDamage(enemyPlayer);
+
+                attackPlayer.TakeDamage(enemyAttackPoints);
+
+                if (attackPlayer.IsDead)
+                {
+                    break;
+                }
             }
         }
     }
