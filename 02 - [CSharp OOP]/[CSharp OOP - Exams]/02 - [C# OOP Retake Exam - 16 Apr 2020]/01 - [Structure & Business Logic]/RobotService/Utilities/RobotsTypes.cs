@@ -1,6 +1,6 @@
-﻿namespace RobotService.Utilities.Enumerations
+﻿namespace RobotService.Utilities
 {
-    public enum RobotTypes
+    public enum RobotsTypes
     {
         HouseholdRobot = 1,
         WalkerRobot = 2,

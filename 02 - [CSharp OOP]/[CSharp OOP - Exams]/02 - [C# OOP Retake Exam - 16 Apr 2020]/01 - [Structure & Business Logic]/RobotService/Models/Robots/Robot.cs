@@ -6,7 +6,7 @@ namespace RobotService.Models.Robots
 {
     public abstract class Robot : IRobot
     {
-        private int hapiness;
+        private int happiness;
         private int energy;
 
         protected Robot(string name, int energy, int happiness, int procedureTime)
@@ -17,36 +17,37 @@ namespace RobotService.Models.Robots
             this.ProcedureTime = procedureTime;
 
             this.Owner = "Service";
+
             this.IsBought = false;
             this.IsChipped = false;
             this.IsChecked = false;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
         public int Happiness
         {
-            get
-            {
-                return this.hapiness;
-            }
+            get => this.happiness;
             set
             {
-                Validate(value, ExceptionMessages.InvalidHappiness);
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidHappiness);
+                }
 
-                this.hapiness = value;
+                this.happiness = value;
             }
         }
 
         public int Energy
         {
-            get
-            {
-                return this.energy;
-            }
+            get => this.energy;
             set
             {
-                Validate(value, ExceptionMessages.InvalidEnergy);
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidEnergy);
+                }
 
                 this.energy = value;
             }
@@ -62,20 +63,12 @@ namespace RobotService.Models.Robots
 
         public bool IsChecked { get; set; }
 
-        private static void Validate(int value, string msg)
-        {
-            if (value < 0 || value > 100)
-            {
-                throw new ArgumentException(msg);
-            }
-        }
-
         public override string ToString()
         {
-            return
-            $" Robot type: {this.GetType().Name} - {this.Name} - " +
-            $"Happiness: {this.Happiness} - " +
-            $"Energy: {this.Energy}";
+            return $" Robot type: {this.GetType().Name} - " +
+                   $"{this.Name} - " +
+                   $"Happiness: {this.Happiness} - " +
+                   $"Energy: {this.Energy}";
         }
     }
 }

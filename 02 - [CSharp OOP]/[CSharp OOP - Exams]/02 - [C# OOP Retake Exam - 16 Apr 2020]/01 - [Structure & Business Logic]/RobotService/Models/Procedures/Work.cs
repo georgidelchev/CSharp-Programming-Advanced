@@ -1,6 +1,6 @@
 ﻿using RobotService.Models.Robots.Contracts;
 
-namespace RobotService.Models.Procedures.ProceduresModels
+namespace RobotService.Models.Procedures
 {
     public class Work : Procedure
     {

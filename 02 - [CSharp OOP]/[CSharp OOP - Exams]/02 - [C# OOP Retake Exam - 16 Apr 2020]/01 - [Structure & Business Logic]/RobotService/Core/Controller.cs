@@ -1,104 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using RobotService.Core.Contracts;
+using RobotService.Models.Garages;
 using RobotService.Models.Garages.Contracts;
-using RobotService.Models.Garages.GarageModels;
+using RobotService.Models.Procedures;
 using RobotService.Models.Procedures.Contracts;
-using RobotService.Models.Procedures.ProceduresModels;
 using RobotService.Models.Robots;
 using RobotService.Models.Robots.Contracts;
-using RobotService.Utilities.Enumerations;
+using RobotService.Utilities;
 using RobotService.Utilities.Messages;
 
 namespace RobotService.Core
 {
     public class Controller : IController
     {
-        private readonly IGarage garage;
-        private readonly Dictionary<RobotProcedures, IProcedure> procedures;
+        private readonly IGarage _garage;
+        private readonly Dictionary<Procedures, IProcedure> _procedures;
 
         public Controller()
         {
-            this.garage = new Garage();
-            this.procedures = new Dictionary<RobotProcedures, IProcedure>();
-
+            this._garage = new Garage();
+            this._procedures = new Dictionary<Procedures, IProcedure>();
             AddProcedures();
         }
 
         public string Manufacture(string robotType, string name, int energy, int happiness, int procedureTime)
         {
-            if (!Enum.TryParse(robotType, out RobotTypes currRobotType))
+            if (!Enum.TryParse(robotType, out RobotsTypes currRobotsType))
             {
                 var msg = string.Format(ExceptionMessages.InvalidRobotType, robotType);
-
                 throw new ArgumentException(msg);
             }
 
-            garage.Manufacture(CreateRobot(name, energy, happiness, procedureTime, currRobotType));
+            IRobot robot = null;
+            switch (currRobotsType)
+            {
+                case RobotsTypes.HouseholdRobot:
+                    robot = new HouseholdRobot(name, energy, happiness, procedureTime);
+                    break;
+                case RobotsTypes.WalkerRobot:
+                    robot = new WalkerRobot(name, energy, happiness, procedureTime);
+                    break;
+                case RobotsTypes.PetRobot:
+                    robot = new PetRobot(name, energy, happiness, procedureTime);
+                    break;
+            }
 
-            return String.Format(OutputMessages.RobotManufactured, name);
+            this._garage.Manufacture(robot);
+            var outputMsg = string.Format(OutputMessages.RobotManufactured, name);
+            return outputMsg;
         }
 
         public string Chip(string robotName, int procedureTime)
         {
-            return ExecuteProcedure(robotName, procedureTime, ExceptionMessages.InexistingRobot, OutputMessages.ChipProcedure, RobotProcedures.Chip);
+            return ExecuteProcedure(robotName, procedureTime, Procedures.Chip, OutputMessages.ChipProcedure);
         }
 
         public string TechCheck(string robotName, int procedureTime)
         {
-            return ExecuteProcedure(robotName, procedureTime, ExceptionMessages.InexistingRobot, OutputMessages.TechCheckProcedure, RobotProcedures.TechCheck);
+            return ExecuteProcedure(robotName, procedureTime, Procedures.TechCheck, OutputMessages.TechCheckProcedure);
         }
 
         public string Rest(string robotName, int procedureTime)
         {
-            return ExecuteProcedure(robotName, procedureTime, ExceptionMessages.InexistingRobot, OutputMessages.RestProcedure, RobotProcedures.Rest);
+            return ExecuteProcedure(robotName, procedureTime, Procedures.Rest, OutputMessages.RestProcedure);
         }
 
         public string Work(string robotName, int procedureTime)
         {
-            var msg = string.Format(ExceptionMessages.InexistingRobot, robotName);
-
-            Validate(robotName, msg);
-
-            IRobot robot = this.garage.Robots[robotName];
-            IProcedure procedure = this.procedures[RobotProcedures.Work];
-
-            procedure.DoService(robot, procedureTime);
-
-            var outputMsg = string.Format(OutputMessages.WorkProcedure, robotName, procedureTime);
-
-            return outputMsg;
+            ExecuteProcedure(robotName, procedureTime, Procedures.Work, "");
+            var msg = string.Format(OutputMessages.WorkProcedure, robotName, procedureTime);
+            return msg;
         }
 
         public string Charge(string robotName, int procedureTime)
         {
-            return ExecuteProcedure(robotName, procedureTime, ExceptionMessages.InexistingRobot, OutputMessages.ChargeProcedure, RobotProcedures.Charge);
+            return ExecuteProcedure(robotName, procedureTime, Procedures.Charge, OutputMessages.ChargeProcedure);
         }
 
         public string Polish(string robotName, int procedureTime)
         {
-            return ExecuteProcedure(robotName, procedureTime, ExceptionMessages.InexistingRobot, OutputMessages.PolishProcedure, RobotProcedures.Polish);
+            return ExecuteProcedure(robotName, procedureTime, Procedures.Polish, OutputMessages.PolishProcedure);
         }
 
         public string Sell(string robotName, string ownerName)
         {
             var msg = string.Format(ExceptionMessages.InexistingRobot, robotName);
+            CheckRobotExisting(robotName, msg);
+            var robot = this._garage.Robots[robotName];
 
-            Validate(robotName, msg);
-
-            IRobot robot = this.garage.Robots[robotName];
-
-            this.garage.Sell(robot.Name, robot.Owner);
+            this._garage.Sell(robotName, ownerName);
 
             var outputMsg = "";
-
             if (robot.IsChipped)
             {
-                outputMsg = string.Format(OutputMessages.SellChippedRobot, ownerName);
+                outputMsg = $"{ownerName} bought robot with chip";
             }
             else
             {
-                outputMsg = string.Format(OutputMessages.SellNotChippedRobot, ownerName);
+                outputMsg = $"{ownerName} bought robot without chip";
             }
 
             return outputMsg;
@@ -106,65 +107,43 @@ namespace RobotService.Core
 
         public string History(string procedureType)
         {
-            Enum.TryParse(procedureType, out RobotProcedures currentProcedure);
+            Enum.TryParse(procedureType, out Procedures currProcedure);
 
-            IProcedure procedure = this.procedures[currentProcedure];
+            var procedure = this._procedures[currProcedure];
 
             return procedure.History().Trim();
         }
 
-        private static IRobot CreateRobot(string name, int energy, int happiness, int procedureTime, RobotTypes currRobotType)
+        private void CheckRobotExisting(string robotName, string msg)
         {
-            IRobot robot = null;
-
-            switch (currRobotType)
-            {
-                case RobotTypes.HouseholdRobot:
-                    robot = new HouseholdRobot(name, energy, happiness, procedureTime);
-                    break;
-                case RobotTypes.WalkerRobot:
-                    robot = new WalkerRobot(name, energy, happiness, procedureTime);
-                    break;
-                case RobotTypes.PetRobot:
-                    robot = new PetRobot(name, energy, happiness, procedureTime);
-                    break;
-            }
-
-            return robot;
-        }
-
-        private void Validate(string robotName, string msg)
-        {
-            if (!garage.Robots.ContainsKey(robotName))
+            if (!this._garage.Robots.ContainsKey(robotName))
             {
                 throw new ArgumentException(msg);
             }
         }
 
-        private void AddProcedures()
+        private string ExecuteProcedure(string robotName, int procedureTime, Procedures proc, string output)
         {
-            this.procedures.Add(RobotProcedures.Chip, new Chip());
-            this.procedures.Add(RobotProcedures.Charge, new Charge());
-            this.procedures.Add(RobotProcedures.Rest, new Rest());
-            this.procedures.Add(RobotProcedures.Polish, new Polish());
-            this.procedures.Add(RobotProcedures.Work, new Work());
-            this.procedures.Add(RobotProcedures.TechCheck, new TechCheck());
-        }
+            var msg = string.Format(ExceptionMessages.InexistingRobot, robotName);
+            CheckRobotExisting(robotName, msg);
 
-        private string ExecuteProcedure(string robotName, int procedureTime, string message, string outputMessage, RobotProcedures robotProcedure)
-        {
-            var msg = string.Format(message, robotName);
-
-            Validate(robotName, msg);
-
-            IRobot robot = this.garage.Robots[robotName];
-            IProcedure procedure = this.procedures[robotProcedure];
+            var robot = this._garage.Robots[robotName];
+            var procedure = this._procedures[proc];
 
             procedure.DoService(robot, procedureTime);
 
-            var outputMsg = string.Format(outputMessage, robotName);
-
+            var outputMsg = string.Format(output, robotName);
             return outputMsg;
+        }
+
+        private void AddProcedures()
+        {
+            this._procedures.Add(Procedures.Charge, new Charge());
+            this._procedures.Add(Procedures.Chip, new Chip());
+            this._procedures.Add(Procedures.Polish, new Polish());
+            this._procedures.Add(Procedures.Rest, new Rest());
+            this._procedures.Add(Procedures.Work, new Work());
+            this._procedures.Add(Procedures.TechCheck, new TechCheck());
         }
     }
 }

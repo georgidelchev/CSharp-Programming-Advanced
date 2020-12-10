@@ -1,14 +1,14 @@
 ﻿using RobotService.Models.Robots.Contracts;
 
-namespace RobotService.Models.Procedures.ProceduresModels
+namespace RobotService.Models.Procedures
 {
-    public class Charge : Procedure
+    public class Rest : Procedure
     {
         public override void DoService(IRobot robot, int procedureTime)
         {
             base.DoService(robot, procedureTime);
 
-            robot.Happiness += 12;
+            robot.Happiness -= 3;
             robot.Energy += 10;
         }
     }

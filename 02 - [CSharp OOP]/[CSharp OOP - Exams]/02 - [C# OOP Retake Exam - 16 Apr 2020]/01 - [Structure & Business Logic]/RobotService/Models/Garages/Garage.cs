@@ -4,24 +4,24 @@ using RobotService.Models.Garages.Contracts;
 using RobotService.Models.Robots.Contracts;
 using RobotService.Utilities.Messages;
 
-namespace RobotService.Models.Garages.GarageModels
+namespace RobotService.Models.Garages
 {
     public class Garage : IGarage
     {
-        private readonly Dictionary<string, IRobot> robots;
         private const int CAPACITY = 10;
+
+        private readonly Dictionary<string, IRobot> robots;
 
         public Garage()
         {
             this.robots = new Dictionary<string, IRobot>();
         }
 
-        public IReadOnlyDictionary<string, IRobot> Robots
-                    => this.robots;
+        public IReadOnlyDictionary<string, IRobot> Robots => this.robots;
 
         public void Manufacture(IRobot robot)
         {
-            if (CAPACITY == this.Robots.Count)
+            if (this.Robots.Count == CAPACITY)
             {
                 throw new InvalidOperationException(ExceptionMessages.NotEnoughCapacity);
             }
@@ -29,7 +29,6 @@ namespace RobotService.Models.Garages.GarageModels
             if (this.Robots.ContainsKey(robot.Name))
             {
                 var msg = string.Format(ExceptionMessages.ExistingRobot, robot.Name);
-
                 throw new ArgumentException(msg);
             }
 
@@ -38,16 +37,14 @@ namespace RobotService.Models.Garages.GarageModels
 
         public void Sell(string robotName, string ownerName)
         {
-            if (!this.robots.ContainsKey(robotName))
+            if (!this.Robots.ContainsKey(robotName))
             {
-                var msg = string.Format(ExceptionMessages.InexistingRobot,robotName);
-
+                var msg = string.Format(ExceptionMessages.InexistingRobot, robotName);
                 throw new ArgumentException(msg);
             }
 
             this.robots[robotName].Owner = ownerName;
             this.robots[robotName].IsBought = true;
-
             this.robots.Remove(robotName);
         }
     }
