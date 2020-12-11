@@ -81,7 +81,7 @@ namespace CounterStrike.Models.Players
             {
                 if (value == null)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidGunName);
+                    throw new ArgumentException(ExceptionMessages.InvalidGun);
                 }
 
                 this.gun = value;
