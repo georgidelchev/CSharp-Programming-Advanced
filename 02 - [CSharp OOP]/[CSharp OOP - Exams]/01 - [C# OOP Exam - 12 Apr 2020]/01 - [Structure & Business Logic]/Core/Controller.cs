@@ -61,7 +61,7 @@ namespace CounterStrike.Core
 
         public string StartGame()
         {
-            return map.Start(players.Models.ToList());
+            return map.Start(players.Models.ToList().Where(p => p.IsAlive));
         }
 
         public string Report()
