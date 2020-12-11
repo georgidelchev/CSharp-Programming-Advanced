@@ -46,7 +46,7 @@ namespace CounterStrike.Core
 
             if (gun == null)
             {
-                throw new ArgumentNullException(ExceptionMessages.GunCannotBeFound);
+                throw new ArgumentException(ExceptionMessages.GunCannotBeFound);
             }
 
             if (!Enum.TryParse(type, out Players player))
@@ -61,7 +61,7 @@ namespace CounterStrike.Core
 
         public string StartGame()
         {
-            return map.Start(players.Models.ToList().Where(p => p.IsAlive));
+            return map.Start(players.Models.Where(p => p.IsAlive).ToList());
         }
 
         public string Report()
